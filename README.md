@@ -79,6 +79,7 @@
 # 2.4.1 Requisições GET
 
   A API possui duas requisições GET sendo elas:
+  
     - getAllNotas;
     - getNotaFilter.
 
@@ -88,7 +89,7 @@
 
   Path: Path Base;
   
-  Parâmetros: Esta requisição espera dois parâmetros sendo eles: actualPage (Página Atual) e itemsPerPage (Quantidade de Items por Página). Todos eles são "ints". Caso nenhum valor seja associado aos mesmos, eles assumem valor padrão de 0 e 10 respectivamentes. Estes parâmetros são para ordenação dos items de resposta em formata de páginas.
+  Parâmetros: Esta requisição espera dois parâmetros sendo eles: actualPage (Página Atual) e itemsPerPage (Quantidade de Items por Página). Todos eles são "ints". Caso nenhum valor seja associado aos mesmos, eles assumem valor padrão de 0 e 10 respectivamentes. Estes parâmetros são para ordenação dos items de resposta em formato de páginas.
   
   Resultado Esperado: Um Iterable de Notas Fiscais com todos os registros do Banco de Dados. Caso não encontre nenhum registro, retornará um erro com status 404 de Notas Fiscais não encontradas.
   

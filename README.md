@@ -166,18 +166,20 @@
               
   Resultado Esperado: Uma mensagem informando que a Nota Fiscal foi inserida com sucesso. Qualquer erro de validação resultará num erro de Status 400 ou 500 caso sejam erros relacionados ao Banco de Dados.
 
-  Exemplo de Requisição: 
-    http://localhost:8080/api/notas/insert
-    body {
-      "numeroSerie":"2",
-      "cnpj":"23482453000105",
-      "razaoSocial":"Cassino Birulinha",
-      "endereco":"Rua José de Alencar, 125, Jardim Novo Horizonte - São Paulo, São Paulo",
-      "valor":100.25
-    }
+  Exemplo de Requisição:
+  
+                                                    http://localhost:8080/api/notas/insert
+                                                    body {
+                                                      "numeroSerie":"2",
+                                                      "cnpj":"23482453000105",
+                                                      "razaoSocial":"Cassino Birulinha",
+                                                      "endereco":"Rua José de Alencar, 125, Jardim Novo Horizonte - São Paulo, São Paulo",
+                                                      "valor":100.25
+                                                    }
     
   Resultado:
-    Nota Fiscal inserida com Sucesso!
+  
+                                                    Nota Fiscal inserida com Sucesso!
 
 # 2.4.3 Requisição PUT
 
@@ -188,19 +190,21 @@
   Resultado esperado: Uma mensagem informando que a Nota Fiscal foi atualizada com sucesso. Qualquer erro de validação resultará num erro de Status 400 ou 500 caso sejam erros relacionados ao Banco de Dados.
   
   Exemplo de requisição:
-    http://localhost:8080/api/notas/edit
-    body {
-      "id":20,
-      "numeroNotaFiscal": "000000005",
-      "numeroSerie":"2",
-      "cnpj":"23482453000105",
-      "razaoSocial":"Birulinhas Cassino 2",
-      "endereco":"Rua José de Alencar ,125, Jardim Novo Horizonte - São Paulo, São Paulo",
-      "valor":500.25
-    }
+  
+                                                          http://localhost:8080/api/notas/edit
+                                                          body {
+                                                            "id":20,
+                                                            "numeroNotaFiscal": "000000005",
+                                                            "numeroSerie":"2",
+                                                            "cnpj":"23482453000105",
+                                                            "razaoSocial":"Birulinhas Cassino 2",
+                                                            "endereco":"Rua José de Alencar ,125, Jardim Novo Horizonte - São Paulo, São Paulo",
+                                                            "valor":500.25
+                                                          }
     
-    Resultado:
-      Nota Fiscal Editada com Sucesso!
+  Resultado:
+    
+                                                          Nota Fiscal Editada com Sucesso!
 
 # 2.4.4 Requisição DELETE
 

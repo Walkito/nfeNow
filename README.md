@@ -1,4 +1,4 @@
-![image](https://github.com/Walkito/nfeNow/assets/56097547/04ce3c70-1b64-4038-a319-a34cb7b1d7cc)# Manual de Implantação
+# Manual de Implantação
 
   O presente Manual contém as instruções necessárias para realizar a implantação deste repositório. Além disto, também possui exemplos e explicações sobre o sistema para melhor compreensão e usabilidade
 

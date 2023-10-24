@@ -1,10 +1,7 @@
 package br.com.nfenow.geradorNFe.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "notas_fiscais", uniqueConstraints = {@UniqueConstraint(columnNames = {"numeroNotaFiscal", "numeroSerie"})})
@@ -39,6 +36,7 @@ public class NotaFiscal {
     @Column(precision = 9, nullable = false)
     @NotNull
     @Min(0)
+    @Max(999999999)
     private double valor;
 
     public NotaFiscal() {

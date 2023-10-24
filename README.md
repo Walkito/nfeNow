@@ -138,4 +138,55 @@
                                                             }
                                                         ]
 
-# 2.4.2
+# 2.4.2 Requisição POST
+
+  Path: /insert
+  Parâmetros: Esta requisição é uma inserção o Banco de Dados, cadastrando uma nova NFe. Para tanto, você deverá passar um body em JSON para realizar tal cadastro. Os campos a serem informados no body são: numeroSerie, cnpj, razaoSocial, endereco e valor. Todos devem ser preenchidos, caso contrário resultará em erro. O ID e o Número da Nota Fiscal são gerados automaticamente. O Número da Nota Fiscal é gerado de acordo com o Número de Série informado. Por exemplo, caso exista uma Nota Fiscal do tipo 000000001-1, uma nova inserção com o Número de Série 1 resultará no novo registro 000000002-1. No entanto, caso não exista nenhuma nota com o número de série 2 e uma nova inserção seja realizada com este número de série, o novo registro será de 000000001-2 e assim por diante.
+              O numeroSerie não pode exceder 999.
+              A razaoSocial não deve exceder a quantidade de 80 caracteres.
+              O cnj não pode conter menos do que 14 caracteres e deve ser válido.
+              O endereco deve conter no máximo 125 caracteres.
+              O valor minimo a ser informado é de 0.00 e o máximo 999.999.999.
+  Resultado Esperado: Uma mensagem informando que a Nota Fiscal foi inserida com sucesso. Qualquer erro de validação resultará num erro de Status 400 ou 500 caso sejam erros relacionados ao Banco de Dados.
+  Exemplo de Requisição: 
+    http://localhost:8080/api/notas/insert
+    body {
+      "numeroSerie":"2",
+      "cnpj":"23482453000105",
+      "razaoSocial":"Cassino Birulinha",
+      "endereco":"Rua José de Alencar, 125, Jardim Novo Horizonte - São Paulo, São Paulo",
+      "valor":100.25
+    }
+  Resultado:
+    Nota Fiscal inserida com Sucesso!
+
+# 2.4.3 Requisição PUT
+
+  Path: /edit
+  Parâmetros: Esta requisição PUT tem como objetivo editar uma nota fiscal em específico. Para tanto é necessário passar os seguintes parâmetros no body: id,numeroNotaFiscal,numeroSerie,cnpj,razaoSocial,endereco,valor. Por se tratar de uma API simples, não há uma lógica por trás para atualizar apenas os campos modificados, por tanto, é necessário informar todos os campos com os seus valores já cadastrados e alterar apenas aquilo que for necessário.
+  Resultado esperado: Uma mensagem informando que a Nota Fiscal foi atualizada com sucesso. Qualquer erro de validação resultará num erro de Status 400 ou 500 caso sejam erros relacionados ao Banco de Dados.
+  Exemplo de requisição:
+    http://localhost:8080/api/notas/edit
+    body {
+      "id":20,
+      "numeroNotaFiscal": "000000005",
+      "numeroSerie":"2",
+      "cnpj":"23482453000105",
+      "razaoSocial":"Birulinhas Cassino 2",
+      "endereco":"Rua José de Alencar ,125, Jardim Novo Horizonte - São Paulo, São Paulo",
+      "valor":500.25
+    }
+    Resultado:
+      Nota Fiscal Editada com Sucesso!
+
+# 2.4.4 Requisição DELETE
+
+  Path: /delete
+  Parâmetros: Esta requisição DELETE tem como propósito excluir uma Nota Fiscal do Banco de Dados. Portanto, é necessário passar os seguintes parâmetros: numNota (Número da Nota Fiscal) e numSerie (Número da Série). Desta forma, a Nota Fiscal com estes números será encontrada e excluída.
+  Resultado esperado: Uma mensagem informando que a Nota Fiscal foi excluída com sucesso. Caso não encontre a Nota Fiscal e questão, será retornado um erro com status 404 informando que não foi possível achar a Nota Fiscal.
+  Exemplo de requisição: http://localhost:8080/api/notas/delete?numNota=000000005&numSerie=3
+  Resultado: Nota Fiscal excluída com sucesso!
+
+# 3 Conclusão
+
+  Este projeto relativamente simples possuí todos os recursos necessários para o CRUD (Create,Read,Update e Delete) relacionado à Notas Fiscais. Existem muitos espaços para melhorias que podem ser desenvolvidas futuramente. No entanto, este Manual instruí a como Configurar o Projeto e como Utilizá-lo para procedimentos básicos, mas com o intuíto de demonstrar minhas capacidades de Desenvolvimento.

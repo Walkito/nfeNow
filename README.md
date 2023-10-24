@@ -9,6 +9,7 @@
 # 1.1 A IDE
 
   O projeto requer uma IDE para ser acessado e inicializado. O mesmo poderia ter sido exportado como .jar, para uma execução mais simplificada, contudo seria dificultoso o processo para encerrar a API, além de não ser possível visualizar o código fonte. Assim sendo, abri-lo por uma IDE é a maneira mais eficiente de se executar o projeto. Pode utilizar qualquer IDE de sua preferência, particularmente recomendo a IntelliJ que foi a IDE utilizada para desenvolver este projeto.
+  
   Assim sendo, baixe o projeto e abra-o em sua IDE de preferência.
   
 # 1.2 Estrutura do Projeto
@@ -44,6 +45,7 @@
 # 1.4 Configurando o Application.properties
 
   Por mais que seja relacionado ao Banco de Dados, resolvi separar este tópico para maior facilidade em procurá-lo. O Application.properties contém as informações sobre o Banco de Dados: sua URL, username, password, dialect e etc... Como estava trabalhando com localhost, a url de acesso ao meu Banco de Dados é a seguinte: "jdbc:mysql://localhost:3306/nfe_now". Ressalto que, meu usuário de acesso ao mesmo era simples pois se trata de um banco de testes, assim sendo possui um password simples. Contudo, isto deve ser modificado para o seu ambiente. Caso vá utilizar o Banco de Dados em outro local que não seja a sua própria máquina, deve-se modificar a URL. Além disto, mesmo que vá utilizar em sua própria máquina, caso tenha modificado a porta padrão do MySQL, deve-se alterar a mesma na URL.
+  
   E por fim, deve-se alterar e configurar o vosso usuário para o acesso ao Banco de Dados com o seu username e password. Os demais campos que são: hibernate.ddl-uto e hibernate.dialect não é necessário nenhuma alteração.
 
 # 1.5 Inicializando o Projeto
@@ -57,6 +59,7 @@
 # 2.1 Plataforma de API
 
   Neste manual vamos utilizar o Postman para realizar todas as requisições, mas elas também podem ser feitas pelo Insomnia ou outro software para consumir APIs. A mesma também pode ser consumida por um front-end, contudo, o front-end precisará ser construído do zero. O Postman nada mais é do que um software para consumir APIs, no caso, testar as requisições e verificar se está funcionando como deveria. Ele é um software muito prático que evita a necessidade da criação de um Front-End para testar API, ou até mesmo precisar consumir a API pela URL do browser.
+  
   Após abrir a vossa plataforma de API, você poderá usar os caminhos citados posteriormente para realizar os testes. Lembre-se sempre de verificar se o caminho está escrito corretamene, caso contrário, resultará em erro. Além disto, atente-se ao tipo de requisição que irá enviar: GET, POST, PUT ou DELETE para evitar outros erros.
 
 # 2.2 Headers
@@ -66,6 +69,7 @@
 # 2.3 Path Base
 
   A API possui um Path base, um caminho constante que deverá ser utilizado em todas as requisições. Este path deve ser colocado na URL da Plataforma de API. O Path é: http://localhost:8080/api/notas
+  
   Com este caminho, você será capaz de complementá-lo caso necessário e realizar as requisições.
   
 # 2.4 Requisições
@@ -83,9 +87,13 @@
 # 2.4.1.1 GET - getAllNotas
 
   Path: Path Base;
+  
   Parâmetros: Esta requisição espera dois parâmetros sendo eles: actualPage (Página Atual) e itemsPerPage (Quantidade de Items por Página). Todos eles são "ints". Caso nenhum valor seja associado aos mesmos, eles assumem valor padrão de 0 e 10 respectivamentes. Estes parâmetros são para ordenação dos items de resposta em formata de páginas.
+  
   Resultado Esperado: Um Iterable de Notas Fiscais com todos os registros do Banco de Dados. Caso não encontre nenhum registro, retornará um erro com status 404 de Notas Fiscais não encontradas.
+  
   Exemplo de Requisição: http://localhost:8080/api/notas?actualPage=0&itemsPerPage=3
+  
   Resultado:
 
                                                             [
@@ -121,8 +129,11 @@
 # 2.4.1.2 GET - getNotaFilter
 
   Path: /nota
+  
   Parâmetros: Nesta requisição, você pode passar os seguintes parâmetros: numNF (Número da Nota Fiscal), numSerie (Número da Série), razaoSocial, cnpj, endereco, valor (Double), actualPage e itemsPerPage. Contudo, os parâmetros não são obrigatórios, ou seja, você pode preferir não passar valor nenhum em alguns parâmetros. Por exemplo, você pode passar um CNPJ e Razão Social apenas e deixar os demais nulos. A API irá filtrar apenas pelos parâmetros que você passar. Da mesma forma que a requisição anterior, os parâemtros actualPage e itemsPerPage assumem o valor padrão de 0 e 10 caso não sejam inseridos.
+  
   Resultado Esperado: Este método pode retornar apenas 1 Nota Fiscal ou várias dependendo dos critérios de busca. Caso não encontre nenhum registro, retornará um erro com status 404 de Notas Fiscais não encontradas.
+  
   Exemplo de Requisição: http://localhost:8080/api/notas/nota?numNF=000000001&numSerie=2&razaoSocial&cnpj=23482453000105&endereco&valor&actualPage&itemsPerPage
 
   Nesta requisição acima, estamos filtrando apenas pelo numNF,numSerie e cnpj.
@@ -144,13 +155,17 @@
 # 2.4.2 Requisição POST
 
   Path: /insert
+  
   Parâmetros: Esta requisição é uma inserção o Banco de Dados, cadastrando uma nova NFe. Para tanto, você deverá passar um body em JSON para realizar tal cadastro. Os campos a serem informados no body são: numeroSerie, cnpj, razaoSocial, endereco e valor. Todos devem ser preenchidos, caso contrário resultará em erro. O ID e o Número da Nota Fiscal são gerados automaticamente. O Número da Nota Fiscal é gerado de acordo com o Número de Série informado. Por exemplo, caso exista uma Nota Fiscal do tipo 000000001-1, uma nova inserção com o Número de Série 1 resultará no novo registro 000000002-1. No entanto, caso não exista nenhuma nota com o número de série 2 e uma nova inserção seja realizada com este número de série, o novo registro será de 000000001-2 e assim por diante.
+  
               O numeroSerie não pode exceder 999.
               A razaoSocial não deve exceder a quantidade de 80 caracteres.
               O cnj não pode conter menos do que 14 caracteres e deve ser válido.
               O endereco deve conter no máximo 125 caracteres.
               O valor minimo a ser informado é de 0.00 e o máximo 999.999.999.
+              
   Resultado Esperado: Uma mensagem informando que a Nota Fiscal foi inserida com sucesso. Qualquer erro de validação resultará num erro de Status 400 ou 500 caso sejam erros relacionados ao Banco de Dados.
+
   Exemplo de Requisição: 
     http://localhost:8080/api/notas/insert
     body {
@@ -160,14 +175,18 @@
       "endereco":"Rua José de Alencar, 125, Jardim Novo Horizonte - São Paulo, São Paulo",
       "valor":100.25
     }
+    
   Resultado:
     Nota Fiscal inserida com Sucesso!
 
 # 2.4.3 Requisição PUT
 
   Path: /edit
+  
   Parâmetros: Esta requisição PUT tem como objetivo editar uma nota fiscal em específico. Para tanto é necessário passar os seguintes parâmetros no body: id,numeroNotaFiscal,numeroSerie,cnpj,razaoSocial,endereco,valor. Por se tratar de uma API simples, não há uma lógica por trás para atualizar apenas os campos modificados, por tanto, é necessário informar todos os campos com os seus valores já cadastrados e alterar apenas aquilo que for necessário.
+  
   Resultado esperado: Uma mensagem informando que a Nota Fiscal foi atualizada com sucesso. Qualquer erro de validação resultará num erro de Status 400 ou 500 caso sejam erros relacionados ao Banco de Dados.
+  
   Exemplo de requisição:
     http://localhost:8080/api/notas/edit
     body {
@@ -179,15 +198,20 @@
       "endereco":"Rua José de Alencar ,125, Jardim Novo Horizonte - São Paulo, São Paulo",
       "valor":500.25
     }
+    
     Resultado:
       Nota Fiscal Editada com Sucesso!
 
 # 2.4.4 Requisição DELETE
 
   Path: /delete
+  
   Parâmetros: Esta requisição DELETE tem como propósito excluir uma Nota Fiscal do Banco de Dados. Portanto, é necessário passar os seguintes parâmetros: numNota (Número da Nota Fiscal) e numSerie (Número da Série). Desta forma, a Nota Fiscal com estes números será encontrada e excluída.
+  
   Resultado esperado: Uma mensagem informando que a Nota Fiscal foi excluída com sucesso. Caso não encontre a Nota Fiscal e questão, será retornado um erro com status 404 informando que não foi possível achar a Nota Fiscal.
+  
   Exemplo de requisição: http://localhost:8080/api/notas/delete?numNota=000000005&numSerie=3
+  
   Resultado: Nota Fiscal excluída com sucesso!
 
 # 3 Conclusão
